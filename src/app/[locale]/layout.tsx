@@ -1,44 +1,49 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import { notFound } from "next/navigation";
 import { locales, type Locale } from "@/i18n/routing";
-import IntlProvider from "@/components/core/IntlProvider";
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// Informa ao Next.js quais locales existem para pré-renderização
-export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
+// A função generateMetadata também precisa tratar params como uma Promise
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params; // ✅ Await params
+  if (!locales.includes(locale)) notFound();
+
+  return {
+    title: "Meu Portfólio",
+    description: `Portfólio construído com Next.js (${locale})`,
+  };
 }
 
-export const metadata: Metadata = {
-  title: "Meu Portfólio",
-  description: "Portfólio de Desenvolvedor construído com Next.js e React Three Fiber",
-};
-
-// O Layout é um Server Component assíncrono
+// O Layout principal agora trata `params` como uma Promise
 export default async function LocaleLayout({
   children,
-  params, // Recebemos 'params' como um objeto completo
+  params,
 }: {
   children: React.ReactNode;
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>; // ✅ Tipagem como Promise
 }) {
-  // Acessamos 'locale' diretamente do objeto 'params'
-  // Isso evita a desestruturação que o Next.js parece estar reclamando
-  const currentLocale = params.locale;
+  // ✅ Aguarda a resolução da Promise para obter o locale
+  const { locale } = await params;
+  if (!locales.includes(locale)) notFound();
 
   // Buscamos as mensagens no servidor
   const messages = await getMessages();
 
   return (
-    <html lang={currentLocale}>
+    <html lang={locale}>
       <body className={inter.className}>
-        {/* Delegamos a lógica do provider para o Componente Cliente */}
-        <IntlProvider messages={messages} locale={currentLocale}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
-        </IntlProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
