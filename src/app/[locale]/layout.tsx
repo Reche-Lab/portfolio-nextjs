@@ -6,8 +6,6 @@ import { notFound } from "next/navigation";
 import { locales, type Locale } from "@/i18n/routing";
 import "../globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
-
 export async function generateMetadata({
   params,
 }: {
@@ -19,6 +17,9 @@ export async function generateMetadata({
   return {
     title: "Meu Portfólio",
     description: `Portfólio construído com Next.js (${locale})`,
+    other: {
+      "format-detection": "telephone=no, date=no, email=no, address=no",
+    },
   };
 }
 
@@ -35,12 +36,8 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
-      <body className={inter.className}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider locale={locale} messages={messages}>
+      {children}
+    </NextIntlClientProvider>
   );
 }
