@@ -8,13 +8,12 @@ import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// A função generateMetadata também precisa tratar params como uma Promise
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
-  const { locale } = await params; // ✅ Await params
+  const { locale } = await params;
   if (!locales.includes(locale)) notFound();
 
   return {
@@ -23,19 +22,16 @@ export async function generateMetadata({
   };
 }
 
-// O Layout principal agora trata `params` como uma Promise
 export default async function LocaleLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ locale: Locale }>; // ✅ Tipagem como Promise
+  params: Promise<{ locale: Locale }>;
 }) {
-  // ✅ Aguarda a resolução da Promise para obter o locale
   const { locale } = await params;
   if (!locales.includes(locale)) notFound();
 
-  // Buscamos as mensagens no servidor
   const messages = await getMessages();
 
   return (

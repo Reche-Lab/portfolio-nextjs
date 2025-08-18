@@ -1,16 +1,15 @@
-import { getRequestConfig } from 'next-intl/server';
-import { notFound } from 'next/navigation';
-
-// Lista de todos os locales suportados
-const locales = ['en', 'pt', 'es'];
-
-export default getRequestConfig(async ({ locale }) => {
-  // Valida que o locale da URL é um dos que suportamos.
-  // Se não for, a função notFound() do Next.js renderizará a página 404.
-  if (!locale || !locales.includes(locale as string)) notFound();
-
+import {getRequestConfig} from 'next-intl/server';
+import {hasLocale} from 'next-intl';
+import {routing} from './routing';
+ 
+export default getRequestConfig(async ({requestLocale}) => {
+  const requested = await requestLocale;
+  const locale = hasLocale(routing.locales, requested)
+    ? requested
+    : routing.defaultLocale;
+ 
   return {
-    messages: (await import(`../../messages/${locale}.json`)).default,
-    locale: locale as string
+    locale,
+    messages: (await import(`../../messages/${locale}.json`)).default
   };
 });
