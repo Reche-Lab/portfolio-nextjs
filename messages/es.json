@@ -1,6 +1,10 @@
 {
   "Hero": {
     "title": "Hola, soy un Desarrollador Creativo",
-    "subtitle": "Transformando ideas en experiencias digitales interactivas."
+    "subtitle": "Transformando ideas en experiencias digitales interactivas.",
+    "cta": {
+      "projects": "Mis Proyectos",
+      "contact": "Contactar"
+    }
   }
 }
