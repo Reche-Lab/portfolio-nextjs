@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Edges } from "@react-three/drei";
 import * as THREE from "three";
-import { MeshBasicMaterial } from "three";
+import { useGLTF } from "@react-three/drei";
 
 // Tipo para as props dos nossos objetos
 type ShapeProps = {
@@ -24,8 +24,6 @@ function InteractiveIcosahedron({ color }: ShapeProps) {
     const targetScale = isClicked ? 1.2 : 1;
     meshRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
   });
-
-  const edgesMaterial = new MeshBasicMaterial({ color: color, toneMapped: false });
 
   return (
     <mesh
@@ -90,9 +88,40 @@ function InteractivePrism({ color }: ShapeProps) {
   );
 }
 
+function HologramGlobe({ color }: ShapeProps) {
+  // Carrega o modelo GLB. O Drei cuida do cache e do carregamento.
+  const { scene } = useGLTF("/assets/models/earth_globe_hologram.glb");
+  
+  const groupRef = useRef<THREE.Group>(null!);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
+
+  useFrame((state, delta) => {
+    if (!groupRef.current) return;
+
+    groupRef.current.rotation.y += delta * (isHovered ? 0.7 : 0.3);
+
+    const targetScale = isClicked ? 1.3 : 1;
+    groupRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
+  });
+
+  // O modelo GLB é renderizado usando o componente <primitive>
+  return (
+    <group
+      ref={groupRef}
+      onPointerOver={() => setIsHovered(true)}
+      onPointerOut={() => setIsHovered(false)}
+      onPointerDown={() => setIsClicked(true)}
+      onPointerUp={() => setIsClicked(false)}
+    >
+      <primitive object={scene} scale={1.5} />
+    </group>
+  );
+}
+
 // Componente principal ATUALIZADO para passar as cores
 export default function Background3D() {
-  const [currentObject, setCurrentObject] = useState(1);
+  const [currentObject, setCurrentObject] = useState(2);
 
   // useEffect(() => {
   //   const interval = setInterval(() => {
@@ -111,6 +140,7 @@ export default function Background3D() {
         {/* ✅ Passando as cores como props */}
         {currentObject === 0 && <InteractiveIcosahedron color="#00ffff" />}
         {currentObject === 1 && <InteractivePrism color="#00ff99" />}
+        {currentObject === 2 && <HologramGlobe color="#4d94ff" />}
       </Canvas>
     </div>
   );
