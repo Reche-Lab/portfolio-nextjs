@@ -3,9 +3,13 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import Background3D from "@/components/core/Background3D";
+import InfoCard from "@/components/ui/InfoCard"; // ✅ Importe o InfoCard
+import { useState, useEffect } from "react"; // ✅ Importe useState e useEffect
 
 export default function Home() {
   const t = useTranslations("Hero");
+  const [currentObject, setCurrentObject] = useState(0);
+  const objectKeys = ["icosahedron", "prism", "globe", "hologram"] as const;
 
   return (
     // ✅ Usando Grid para criar camadas. Ocupa toda a tela e centraliza o conteúdo.
@@ -14,8 +18,9 @@ export default function Home() {
       {/* Camada 1: O Fundo 3D */}
       {/* Ocupa a primeira (e única) célula do grid */}
       <div className="col-start-1 row-start-1 h-full w-full">
-        <Background3D />
+        <Background3D currentObject={currentObject} />
       </div>
+      <InfoCard objectKey={objectKeys[currentObject]} />
 
       {/* Camada 2: O Conteúdo */}
       {/* Ocupa a MESMA célula, ficando por cima */}
@@ -24,7 +29,7 @@ export default function Home() {
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             {t("title")}
           </h1>
-          <p className="max-w-2xl text-lg text-zinc-300 md:text-xl">
+          <p className="max-w-8xl text-lg text-zinc-300 md:text-xl">
             {t("subtitle")}
           </p>
         </div>

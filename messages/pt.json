@@ -6,6 +6,14 @@
       "projects": "Meus Projetos",
       "contact": "Entrar em Contato"
     }
+  },
+  "Info": {
+    "title": "Sobre esta Visualização",
+    "icosahedron": "Este é um icosaedro, um poliedro com 20 faces triangulares. Ele está sendo renderizado em tempo real usando uma geometria básica do Three.js, com as arestas destacadas para um visual de wireframe.",
+    "prism": "Este é um prisma de base triangular, criado a partir de uma geometria de cilindro com apenas 3 segmentos. A interatividade e a aparência holográfica são controladas pelo React Three Fiber.",
+    "globe": "Este modelo 3D (GLB) de um globo holográfico foi carregado dinamicamente. O formato GLTF/GLB é o padrão para transmissão de assets 3D na web por ser eficiente e completo.",
+    "hologram": "Este é um segundo modelo GLB que inclui animações. A biblioteca Drei facilita o controle dessas animações embutidas, permitindo que elas sejam tocadas diretamente na cena.",
+    "tech": "Esta cena foi construída com **React Three Fiber (R3F)**, que permite criar cenas complexas do **Three.js** de forma declarativa com componentes React. Helpers da biblioteca **Drei** foram usados para acelerar o desenvolvimento. A internacionalização é gerenciada pelo **next-intl**."
   }
 }
 

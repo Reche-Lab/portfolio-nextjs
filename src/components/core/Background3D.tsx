@@ -171,15 +171,7 @@ function InteractiveHologram({ }: ShapeProps) {
 }
 
 // Componente principal ATUALIZADO para passar as cores
-export default function Background3D() {
-    const [currentObject, setCurrentObject] = useState(0);
-
-//   useEffect(() => {
-//     const interval = setInterval(() => {
-//       setCurrentObject((prev) => (prev + 1) % 4);
-//     }, 5000);
-//     return () => clearInterval(interval);
-//   }, []);
+export default function Background3D({ currentObject }: { currentObject: number }) {
     
     const cameraPosition: [number, number, number] = [0, 0, 5];
 
