@@ -37,9 +37,9 @@ function InteractiveIcosahedron({ color }: ShapeProps) {
       <meshStandardMaterial 
         color={color} // ✅ Usa a cor da prop
         transparent 
-        opacity={0.15} 
-        roughness={0.2} 
-        metalness={0.8} 
+        opacity={0.5} 
+        roughness={0.5} 
+        metalness={2} 
       />
       <Edges scale={1.1} color={color}>
         {/* ✅ Usa a cor da prop aqui também */}
@@ -170,6 +170,59 @@ function InteractiveHologram({ }: ShapeProps) {
   );
 }
 
+function BlackDragon({ }: ShapeProps) {
+  const groupRef = useRef<THREE.Group>(null!);
+  const { scene, animations } = useGLTF("/assets/models/black_dragon.glb");
+  const { actions } = useAnimations(animations, groupRef);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
+
+  useEffect(() => {
+    scene.traverse((child) => {
+      if ((child as THREE.Mesh).isMesh) {
+        const material = (child as THREE.Mesh).material as THREE.MeshStandardMaterial;
+        
+        
+        material.transparent = false;
+        material.opacity = 1;
+
+        if (material.emissive) {
+          material.emissiveIntensity = 0.5;
+        }
+      }
+    });
+  }, [scene]);
+
+  useEffect(() => {
+    const firstAnimation = Object.keys(actions)[0];
+    if (firstAnimation) {
+      actions[firstAnimation]?.play();
+    }
+  }, [actions]);
+
+  
+  useFrame((state, delta) => {
+    if (!groupRef.current) return;
+    // groupRef.current.rotation.y += delta * (isHovered ? 0.2 : 0);
+    const targetScale = isClicked ? 1.1 : 1;
+    groupRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
+  });
+
+  return (
+    <group ref={groupRef}>
+      <primitive
+        object={scene}
+        scale={1.5} // Pode manter a escala que você gostou
+        rotation={[0.95, 0, 0]}
+        onPointerOver={() => setIsHovered(true)}
+        onPointerOut={() => setIsHovered(false)}
+        onPointerDown={() => setIsClicked(true)}
+        onPointerUp={() => setIsClicked(false)}
+      />
+    </group>
+  );
+}
+
 // Componente principal ATUALIZADO para passar as cores
 export default function Background3D({ currentObject }: { currentObject: number }) {
     
@@ -178,15 +231,15 @@ export default function Background3D({ currentObject }: { currentObject: number 
     return (
         <div className="h-full w-full">
             <Canvas camera={{ position: cameraPosition, fov: 50 }}>
-                <ambientLight intensity={0} />
+                <ambientLight intensity={1} />
                 <pointLight position={[10, 10, 10]} intensity={150} color="#00ffff" />
                 <pointLight position={[-10, -10, -10]} intensity={100} color="#ffffff" />
                 
                 {/* ✅ Passando as cores como props */}
                 {currentObject === 3 ? (
-                    <Bounds fit clip observe margin={1.5}>
+                    <Bounds fit clip observe margin={0.8}>
                         <Center>
-                            <InteractiveHologram color="#ff4dff" />
+                            <BlackDragon color="#ff4dff" />
                         </Center>
                     </Bounds>
                     ) : (
@@ -194,6 +247,7 @@ export default function Background3D({ currentObject }: { currentObject: number 
                         {currentObject === 0 && <InteractiveIcosahedron color="#00ffff" />}
                         {currentObject === 1 && <InteractivePrism color="#00ff99" />}
                         {currentObject === 2 && <HologramGlobe color="#4d94ff" />}
+                        {/* {currentObject === 4 && <BlackDragon color="#4d94ff" />} */}
                     </>
                 )}
             </Canvas>

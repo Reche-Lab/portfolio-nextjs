@@ -22,7 +22,7 @@ const InfoIcon = () => (
  );
 
 type InfoCardProps = {
-  objectKey: "icosahedron" | "prism" | "globe" | "hologram";
+  objectKey: "icosahedron" | "prism" | "globe" | "hologram" | "black-dragon";
 };
 
 export default function InfoCard({ objectKey }: InfoCardProps) {

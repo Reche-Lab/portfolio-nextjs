@@ -8,8 +8,8 @@ import { useState, useEffect } from "react"; // ✅ Importe useState e useEffect
 
 export default function Home() {
   const t = useTranslations("Hero");
-  const [currentObject, setCurrentObject] = useState(0);
-  const objectKeys = ["icosahedron", "prism", "globe", "hologram"] as const;
+  const [currentObject, setCurrentObject] = useState(3);
+  const objectKeys = ["icosahedron", "prism", "globe", "black-dragon"] as const;
 
   return (
     // ✅ Usando Grid para criar camadas. Ocupa toda a tela e centraliza o conteúdo.
