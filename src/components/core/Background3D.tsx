@@ -18,8 +18,8 @@ function InteractiveIcosahedron({ color }: ShapeProps) {
 
   useFrame((state, delta) => {
     if (!meshRef.current) return;
-    meshRef.current.rotation.y += delta * (isHovered ? 0.8 : 0.1);
-    meshRef.current.rotation.x += delta * 0.05;
+    meshRef.current.rotation.y += delta * (isHovered ? 1 : 0.3);
+    meshRef.current.rotation.x += delta * 0.1;
     const targetScale = isClicked ? 1.2 : 1;
     meshRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
   });
@@ -41,7 +41,7 @@ function InteractiveIcosahedron({ color }: ShapeProps) {
         roughness={0.2} 
         metalness={0.8} 
       />
-      <Edges scale={1.001} color={color}>
+      <Edges scale={1.1} color={color}>
         {/* ✅ Usa a cor da prop aqui também */}
         <meshBasicMaterial color={color} toneMapped={false} />
       </Edges>
@@ -117,47 +117,50 @@ function HologramGlobe({ color }: ShapeProps) {
   );
 }
 
-function InteractiveHologram({ color }: ShapeProps) {
+function InteractiveHologram({ }: ShapeProps) {
   const groupRef = useRef<THREE.Group>(null!);
-  
-  // Carrega o modelo. useGLTF retorna as animações também.
   const { scene, animations } = useGLTF("/assets/models/hologram.glb");
-  
-  // O hook useAnimations nos dá acesso às ações da animação
   const { actions } = useAnimations(animations, groupRef);
-
   const [isHovered, setIsHovered] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
 
-  // useEffect para tocar a animação quando o componente montar
   useEffect(() => {
-    // `actions` é um objeto com os nomes das animações.
-    // Se o seu modelo tiver uma animação chamada "Take 001", por exemplo,
-    // você a acessaria com actions["Take 001"].
-    // Vamos tentar tocar a primeira animação que encontrarmos.
+    scene.traverse((child) => {
+      if ((child as THREE.Mesh).isMesh) {
+        const material = (child as THREE.Mesh).material as THREE.MeshStandardMaterial;
+        
+        
+        material.transparent = true;
+        material.opacity = 0.3;
+
+        if (material.emissive) {
+          material.emissiveIntensity = 0.5;
+        }
+      }
+    });
+  }, [scene]);
+
+  useEffect(() => {
     const firstAnimation = Object.keys(actions)[0];
     if (firstAnimation) {
       actions[firstAnimation]?.play();
     }
   }, [actions]);
 
+  
   useFrame((state, delta) => {
     if (!groupRef.current) return;
-
-    // A rotação pode ser controlada pela própria animação,
-    // mas vamos adicionar uma rotação base para garantir movimento.
     groupRef.current.rotation.y += delta * (isHovered ? 0.5 : 0.1);
-
     const targetScale = isClicked ? 1.1 : 1;
     groupRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
   });
 
   return (
     <group ref={groupRef}>
-      <primitive 
-        object={scene} 
-        scale={1.5}
-        rotation={[Math.PI / 6, 1, 0]} // ✅ Rotação de 30 graus no eixo X para inclinar
+      <primitive
+        object={scene}
+        scale={1.5} // Pode manter a escala que você gostou
+        rotation={[Math.PI / 6, 0, 0]}
         onPointerOver={() => setIsHovered(true)}
         onPointerOut={() => setIsHovered(false)}
         onPointerDown={() => setIsClicked(true)}
@@ -169,7 +172,7 @@ function InteractiveHologram({ color }: ShapeProps) {
 
 // Componente principal ATUALIZADO para passar as cores
 export default function Background3D() {
-    const [currentObject, setCurrentObject] = useState(3);
+    const [currentObject, setCurrentObject] = useState(0);
 
 //   useEffect(() => {
 //     const interval = setInterval(() => {
