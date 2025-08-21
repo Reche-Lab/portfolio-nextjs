@@ -14,5 +14,42 @@
     "globe": "Este modelo 3D (GLB) de un globo holográfico se cargó dinámicamente. El formato GLTF/GLB es el estándar para transmitir assets 3D en la web por ser eficiente y completo.",
     "black-dragon": "Este es un modelo GLB que incluye animaciones. La biblioteca Drei facilita el control de estas animaciones incrustadas, permitiendo que se reproduzcan directamente en la escena.",
     "tech": "Esta escena fue construída con **React Three Fiber (R3F)**, que permite crear escenas complejas de **Three.js** de forma declarativa con componentes React. Se utilizaron helpers de la biblioteca **Drei** para acelerar el desarrollo. La internacionalización es gestionada por **next-intl**."
+  },
+  "About": {
+    "title": "Sobre Mí",
+    "introduction": "Actuar con programación de software en tecnologías de punta, aportando soluciones inteligentes, preferentemente en frentes que generen un impacto social.",
+    "educationTitle": "Formación",
+    "skillsTitle": "Conocimientos en Tecnología",
+    "education": [
+      {
+        "degree": "Postgraduate: Full-Stack Programming and Development in Efficient Languages",
+        "institution": "FIA",
+        "period": "Expected conclusion: December 2025"
+      },
+      {
+        "degree": "Postgraduate: Master in Financial Economics",
+        "institution": "Fundação Getulio Vargas (FGV)",
+        "period": "Conclusion: June 2013"
+      },
+      {
+        "degree": "Bachelor's: Business Administration",
+        "institution": "Universidade Presbiteriana Mackenzie",
+        "period": "Conclusion: June 2006"
+      }
+    ],
+    "skills": {
+      "languages": {
+        "title": "Languages & Frameworks",
+        "items": ["Node.js", "PHP", "Javascript", "Typescript", "React", "React Native", "Python", "VBA", "HTML", "CSS", "Tailwind", "Java"]
+      },
+      "cloud": {
+        "title": "Cloud & DevOps",
+        "items": ["AWS (Lambda, EC2, ELB, API Gateway, CloudWatch, SQS, S3, IAM)", "GCP (Google Function, Pub/Sub)", "Confluent Cloud (Kafka)", "CloudFlare"]
+      },
+      "databases": {
+        "title": "Databases",
+        "items": ["MySQL", "PostgreSQL", "MongoDB"]
+      }
+    }
   }
 }

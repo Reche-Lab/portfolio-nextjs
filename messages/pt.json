@@ -14,6 +14,43 @@
     "globe": "Este modelo 3D (GLB) de um globo holográfico foi carregado dinamicamente. O formato GLTF/GLB é o padrão para transmissão de assets 3D na web por ser eficiente e completo.",
     "black-dragon": "Este é um modelo GLB que inclui animações. A biblioteca Drei facilita o controle dessas animações embutidas, permitindo que elas sejam tocadas diretamente na cena.",
     "tech": "Esta cena foi construída com **React Three Fiber (R3F)**, que permite criar cenas complexas do **Three.js** de forma declarativa com componentes React. Helpers da biblioteca **Drei** foram usados para acelerar o desenvolvimento. A internacionalização é gerenciada pelo **next-intl**."
+  },
+  "About": {
+    "title": "Sobre Mim",
+    "introduction": "Atuar com programação de software em tecnologias de ponta trazendo soluções inteligentes, de preferência atuando em frentes que tragam impacto social.",
+    "educationTitle": "Formação",
+    "skillsTitle": "Conhecimentos em Tecnologia",
+    "education": [
+      {
+        "degree": "Pós-Graduação: Programação Full-Stack e Desenvolvimento em Linguagens Eficientes",
+        "institution": "FIA",
+        "period": "Conclusão prevista: Dezembro 2025"
+      },
+      {
+        "degree": "Pós-Graduação: Master in Financial Economics",
+        "institution": "Fundação Getulio Vargas (FGV)",
+        "period": "Conclusão: Junho 2013"
+      },
+      {
+        "degree": "Superior: Administração de Empresas",
+        "institution": "Universidade Presbiteriana Mackenzie",
+        "period": "Conclusão: Junho 2006"
+      }
+    ],
+    "skills": {
+      "languages": {
+        "title": "Linguagens & Frameworks",
+        "items": ["Node.js", "PHP", "Javascript", "Typescript", "React", "React Native", "Python", "VBA", "HTML", "CSS", "Tailwind", "Java"]
+      },
+      "cloud": {
+        "title": "Cloud & DevOps",
+        "items": ["AWS (Lambda, EC2, ELB, API Gateway, CloudWatch, SQS, S3, IAM)", "GCP (Google Function, Pub/Sub)", "Confluent Cloud (Kafka)", "CloudFlare"]
+      },
+      "databases": {
+        "title": "Bancos de Dados",
+        "items": ["MySQL", "PostgreSQL", "MongoDB"]
+      }
+    }
   }
 }
 

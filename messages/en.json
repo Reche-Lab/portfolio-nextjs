@@ -14,5 +14,42 @@
     "globe": "This 3D model (GLB) of a holographic globe was loaded dynamically. The GLTF/GLB format is the standard for transmitting 3D assets on the web because it is efficient and complete.",
     "black-dragon": "This is a GLB model that includes animations. The Drei library makes it easy to control these embedded animations, allowing them to be played directly in the scene.",
     "tech": "This scene was built with **React Three Fiber (R3F)**, which allows creating complex **Three.js** scenes declaratively with React components. Helpers from the **Drei** library were used to speed up development. Internationalization is managed by **next-intl**."
+  },
+  "About": {
+    "title": "About Me",
+    "introduction": "To work with software programming in cutting-edge technologies, delivering intelligent solutions, preferably acting on fronts that have a social impact.",
+    "educationTitle": "Education",
+    "skillsTitle": "Technological Skills",
+    "education": [
+      {
+        "degree": "Postgraduate: Full-Stack Programming and Development in Efficient Languages",
+        "institution": "FIA",
+        "period": "Expected conclusion: December 2025"
+      },
+      {
+        "degree": "Postgraduate: Master in Financial Economics",
+        "institution": "Fundação Getulio Vargas (FGV)",
+        "period": "Conclusion: June 2013"
+      },
+      {
+        "degree": "Bachelor's: Business Administration",
+        "institution": "Universidade Presbiteriana Mackenzie",
+        "period": "Conclusion: June 2006"
+      }
+    ],
+    "skills": {
+      "languages": {
+        "title": "Languages & Frameworks",
+        "items": ["Node.js", "PHP", "Javascript", "Typescript", "React", "React Native", "Python", "VBA", "HTML", "CSS", "Tailwind", "Java"]
+      },
+      "cloud": {
+        "title": "Cloud & DevOps",
+        "items": ["AWS (Lambda, EC2, ELB, API Gateway, CloudWatch, SQS, S3, IAM)", "GCP (Google Function, Pub/Sub)", "Confluent Cloud (Kafka)", "CloudFlare"]
+      },
+      "databases": {
+        "title": "Databases",
+        "items": ["MySQL", "PostgreSQL", "MongoDB"]
+      }
+    }
   }
 }
