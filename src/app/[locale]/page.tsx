@@ -4,50 +4,69 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import Background3D from "@/components/core/Background3D";
 import InfoCard from "@/components/ui/InfoCard"; // ✅ Importe o InfoCard
-import { useState, useEffect } from "react"; // ✅ Importe useState e useEffect
+import { useState } from "react"; // ✅ Importe useState e useEffect
+import AboutSection from "@/components/sections/AboutSection";
+import ExperienceSection from "@/components/sections/ExperienceSection";
+import ContactSection from "@/components/sections/ContactSection";
 
 export default function Home() {
   const t = useTranslations("Hero");
-  const [currentObject, setCurrentObject] = useState(3);
+  const [currentObject] = useState(3);
   const objectKeys = ["icosahedron", "prism", "globe", "black-dragon"] as const;
 
-  return (
-    // ✅ Usando Grid para criar camadas. Ocupa toda a tela e centraliza o conteúdo.
-    <main className="grid h-screen w-screen place-items-center bg-zinc-900">
-      
-      {/* Camada 1: O Fundo 3D */}
-      {/* Ocupa a primeira (e única) célula do grid */}
-      <div className="col-start-1 row-start-1 h-full w-full">
-        <Background3D currentObject={currentObject} />
-      </div>
-      <InfoCard objectKey={objectKeys[currentObject]} />
+  const [isObjectHovered, setIsObjectHovered] = useState(false);
+  // const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-      {/* Camada 2: O Conteúdo */}
-      {/* Ocupa a MESMA célula, ficando por cima */}
-      <div className="relative col-start-1 row-start-1 flex flex-col items-center space-y-6 p-6 text-center text-white">
-        <div className="space-y-4">
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-            {t("title")}
-          </h1>
-          <p className="max-w-8xl text-lg text-zinc-300 md:text-xl">
-            {t("subtitle")}
-          </p>
+  // const handleMouseMove = (e: React.MouseEvent) => {
+  //   setMousePosition({ x: e.clientX, y: e.clientY });
+  // };
+
+  return (
+    <div className="bg-zinc-900">
+      <div className="grid h-screen w-screen place-items-center">
+        <div className="col-start-1 row-start-1 h-full w-full relative overflow-hidden">
+          <div className={`absolute inset-0 ${currentObject === 3 ? '-translate-y-[14%]' : ''}`}>
+            <Background3D 
+              currentObject={currentObject} 
+              onObjectHover={setIsObjectHovered}
+            />
+          </div>
         </div>
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Link
-            href="/#projects"
-            className="inline-flex items-center justify-center rounded-md bg-white px-8 py-3 text-base font-medium text-zinc-900 shadow-sm transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-zinc-900"
-          >
-            {t("cta.projects")}
-          </Link>
-          <Link
-            href="/#contact"
-            className="inline-flex items-center justify-center rounded-md border border-zinc-300 bg-transparent px-8 py-3 text-base font-medium text-zinc-300 transition-colors hover:bg-zinc-800 hover:text-white focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:ring-offset-2 focus:ring-offset-zinc-900"
-          >
-            {t("cta.contact")}
-          </Link>
+        <InfoCard
+          objectKey={objectKeys[currentObject]}
+          isHovered={isObjectHovered}
+        />
+
+        {/* Camada 2: O Conteúdo */}
+        {/* Ocupa a MESMA célula, ficando por cima */}
+        <div className="relative col-start-1 row-start-1 flex flex-col items-center space-y-6 p-6 text-center text-white">
+          <div className="space-y-4">
+            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+              {t("title")}
+            </h1>
+            <p className="max-w-8xl text-lg text-zinc-300 md:text-xl">
+              {t("subtitle")}
+            </p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Link
+              href="/#projects"
+              className="inline-flex items-center justify-center rounded-md bg-white px-8 py-3 text-base font-medium text-zinc-900 shadow-sm transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-zinc-900"
+            >
+              {t("cta.projects")}
+            </Link>
+            <Link
+              href="/#contact"
+              className="inline-flex items-center justify-center rounded-md border border-zinc-300 bg-transparent px-8 py-3 text-base font-medium text-zinc-300 transition-colors hover:bg-zinc-800 hover:text-white focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:ring-offset-2 focus:ring-offset-zinc-900"
+            >
+              {t("cta.contact")}
+            </Link>
+          </div>
         </div>
       </div>
-    </main>
+      <AboutSection />
+      <ExperienceSection />
+      <ContactSection />
+    </div>
   );
 }

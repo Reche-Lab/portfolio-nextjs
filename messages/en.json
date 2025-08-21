@@ -12,7 +12,6 @@
     "icosahedron": "This is an icosahedron, a polyhedron with 20 triangular faces. It's being rendered in real-time using a basic Three.js geometry, with its edges highlighted for a wireframe look.",
     "prism": "This is a triangular-based prism, created from a cylinder geometry with only 3 segments. The interactivity and holographic appearance are controlled by React Three Fiber.",
     "globe": "This 3D model (GLB) of a holographic globe was loaded dynamically. The GLTF/GLB format is the standard for transmitting 3D assets on the web because it is efficient and complete.",
-    "hologram": "This is a GLB model that includes animations. The Drei library makes it easy to control these embedded animations, allowing them to be played directly in the scene.",
     "black-dragon": "This is a GLB model that includes animations. The Drei library makes it easy to control these embedded animations, allowing them to be played directly in the scene.",
     "tech": "This scene was built with **React Three Fiber (R3F)**, which allows creating complex **Three.js** scenes declaratively with React components. Helpers from the **Drei** library were used to speed up development. Internationalization is managed by **next-intl**."
   }
