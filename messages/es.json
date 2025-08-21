@@ -80,5 +80,12 @@
         "description": "Realicé estudios de volatilidad para la contratación de coberturas (Hedge), actué como Usuario Clave de SAP (TRM y FI), gestioné deudas y preparé indicadores financieros. Fui responsable de la gestión de pólizas de seguro y del control del flujo de caja del grupo."
       }
     ]
+  },
+  "Contact": {
+    "title": "Hablemos",
+    "description": "Siempre estoy abierto a discutir nuevos proyectos, oportunidades de trabajo o simplemente intercambiar ideas. No dudes en ponerte en contacto.",
+    "email": "Enviar un Correo",
+    "linkedin": "Ver en LinkedIn",
+    "github": "Ver en GitHub"
   }
 }

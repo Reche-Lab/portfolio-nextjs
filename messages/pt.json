@@ -80,6 +80,13 @@
         "description": "Realizei estudos de volatilidade para contratação de Hedge, atuei como Key User de SAP (TRM e FI), controlei dívidas e preparei indicadores financeiros. Fui responsável pela gestão de apólices de seguro e controle do fluxo de caixa do grupo."
       }
     ]
+  },
+  "Contact": {
+    "title": "Vamos Conversar",
+    "description": "Estou sempre aberto a discutir novos projetos, oportunidades de trabalho ou simplesmente trocar ideias. Sinta-se à vontade para entrar em contato.",
+    "email": "Enviar um e-mail",
+    "linkedin": "Ver no LinkedIn",
+    "github": "Ver no GitHub"
   }
 }
 

@@ -80,5 +80,12 @@
         "description": "Conducted volatility studies for Hedge contracting, acted as a SAP Key User (TRM and FI), managed debt, and prepared financial indicators. I was responsible for managing insurance policies and controlling the group's cash flow."
       }
     ]
+  },
+  "Contact": {
+    "title": "Let's Talk",
+    "description": "I'm always open to discussing new projects, work opportunities, or just exchanging ideas. Feel free to get in touch.",
+    "email": "Send an Email",
+    "linkedin": "View on LinkedIn",
+    "github": "View on GitHub"
   }
 }
