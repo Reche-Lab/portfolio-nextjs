@@ -51,5 +51,34 @@
         "items": ["MySQL", "PostgreSQL", "MongoDB"]
       }
     }
+  },
+  "Experience": {
+    "title": "Professional Experience",
+    "timeline": [
+      {
+        "company": "INNGAGE - ENGAGEMENT SOLUTIONS",
+        "period": "Feb 2021 - May 2025",
+        "role": "Specialist Developer",
+        "description": "Among many projects, I highlight the implementation of serverless technology (AWS Lambda, Google Cloud Function), queues (AWS SQS, Google Pub/Sub), and streaming (Apache Kafka). I refactored the main project to a multi-channel architecture, proposed and developed new cloud architectures focused on cost and performance, and managed databases (MySQL, MongoDB)."
+      },
+      {
+        "company": "ALMAVET VETERINARY CLINIC",
+        "period": "Jan 2016 - Dec 2020",
+        "role": "Partner - Administrative and Financial Director",
+        "description": "Developed the business plan and systematized administrative and customer service management. I was responsible for all financial planning, marketing, website development, people management, and accounting routines."
+      },
+      {
+        "company": "BM&FBOVESPA S.A. - [B]³",
+        "period": "Jan 2014 - Oct 2015",
+        "role": "Treasury Analyst",
+        "description": "Managed Hedge Accounting, performed liability management, and the stock buyback program. Developed the MRA module in SAP and kept the investment portfolio aligned with the current policy."
+      },
+      {
+        "company": "FLEURY S.A.",
+        "period": "Jun 2011 - Nov 2013",
+        "role": "Treasury Analyst",
+        "description": "Conducted volatility studies for Hedge contracting, acted as a SAP Key User (TRM and FI), managed debt, and prepared financial indicators. I was responsible for managing insurance policies and controlling the group's cash flow."
+      }
+    ]
   }
 }

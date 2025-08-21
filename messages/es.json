@@ -51,5 +51,34 @@
         "items": ["MySQL", "PostgreSQL", "MongoDB"]
       }
     }
+  },
+  "Experience": {
+    "title": "Experiencia Profesional",
+    "timeline": [
+      {
+        "company": "INNGAGE - SOLUCIONES DE ENGAGEMENT",
+        "period": "Feb 2021 - May 2025",
+        "role": "Desarrollador Especialista",
+        "description": "Entre muchos proyectos, destaco la implementación de tecnología serverless (AWS Lambda, Google Cloud Function), colas (AWS SQS, Google Pub/Sub) y streaming (Apache Kafka). Refactoricé el proyecto principal a una arquitectura multicanal, propuse y desarrollé nuevas arquitecturas en la nube enfocadas en costo y rendimiento, y administré bases de datos (MySQL, MongoDB)."
+      },
+      {
+        "company": "ALMAVET CLÍNICA VETERINARIA",
+        "period": "Ene 2016 - Dic 2020",
+        "role": "Socio - Director Administrativo y Financiero",
+        "description": "Desarrollé el plan de negocio y sistematicé la gestión administrativa y de atención al cliente. Fui responsable de toda la planificación financiera, marketing, desarrollo del sitio web, gestión de personal y rutinas contables."
+      },
+      {
+        "company": "BM&FBOVESPA S.A. - [B]³",
+        "period": "Ene 2014 - Oct 2015",
+        "role": "Analista de Tesorería",
+        "description": "Gestioné el Hedge Accounting, realicé la gestión de pasivos (liability management) y el programa de recompra de acciones. Desarrollé el módulo MRA en SAP y mantuve la cartera de inversiones alineada con la política vigente."
+      },
+      {
+        "company": "FLEURY S.A.",
+        "period": "Jun 2011 - Nov 2013",
+        "role": "Analista de Tesorería",
+        "description": "Realicé estudios de volatilidad para la contratación de coberturas (Hedge), actué como Usuario Clave de SAP (TRM y FI), gestioné deudas y preparé indicadores financieros. Fui responsable de la gestión de pólizas de seguro y del control del flujo de caja del grupo."
+      }
+    ]
   }
 }
