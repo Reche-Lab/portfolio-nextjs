@@ -49,7 +49,7 @@ function InteractiveIcosahedron({ color, onHoverChange }: ShapeProps) {
         transparent 
         opacity={0.5} 
         roughness={0.5} 
-        metalness={1.2} 
+        metalness={0.8} 
       />
       <Edges scale={1.1} color={color} />
     </mesh>
@@ -63,8 +63,8 @@ function InteractivePrism({ color, onHoverChange }: ShapeProps) {
   useFrame((state, delta) => {
     if (!meshRef.current) return;
     meshRef.current.rotation.y += delta * 0.2;
-    meshRef.current.rotation.x -= delta * 0.08;
-    const targetScale = isClicked ? 1.2 : 1;
+    // meshRef.current.rotation.x -= delta * 0.05;
+    const targetScale = isClicked ? 0.20 : 0.15;
     meshRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
   });
 
@@ -75,18 +75,18 @@ function InteractivePrism({ color, onHoverChange }: ShapeProps) {
       onPointerOut={() => onHoverChange(false)}
       onPointerDown={() => setIsClicked(true)}
       onPointerUp={() => setIsClicked(false)}
-      scale={1.5}
+      scale={0.5}
       rotation={[0.2, 0, 0]}
     >
-      <cylinderGeometry args={[1, 1, 1.5, 3]} />
+      <cylinderGeometry args={[0, 5, 10, 7]} />
       <meshStandardMaterial
         color={color}
         transparent
-        opacity={0.15}
-        roughness={0.2}
-        metalness={0.8}
+        opacity={0.7}
+        roughness={0.5}
+        metalness={1}
       />
-      <Edges scale={1.001} color={color} />
+      <Edges scale={1.2} color={color} />
     </mesh>
   );
 }
