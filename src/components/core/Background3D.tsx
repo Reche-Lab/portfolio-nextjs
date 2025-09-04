@@ -192,7 +192,7 @@ export default function Background3D({
         ) : (
           <>
             {currentObject === 0 && <InteractiveIcosahedron color="#00ffff" onHoverChange={onObjectHover} />}
-            {currentObject === 1 && <InteractivePrism color="#00ff99" onHoverChange={onObjectHover} />}
+            {currentObject === 1 && <InteractivePrism color="#00ffff" onHoverChange={onObjectHover} />}
             {currentObject === 2 && <HologramGlobe color="#4d94ff" onHoverChange={onObjectHover} />}
           </>
         )}

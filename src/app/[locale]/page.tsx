@@ -3,8 +3,9 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import Background3D from "@/components/core/Background3D";
-import InfoCard from "@/components/ui/InfoCard"; // ✅ Importe o InfoCard
-import { useState } from "react"; // ✅ Importe useState e useEffect
+import InteractiveBackground from "@/components/core/InteractiveBackground";
+import InfoCard from "@/components/ui/InfoCard";
+import { useState } from "react";
 import AboutSection from "@/components/sections/AboutSection";
 import ExperienceSection from "@/components/sections/ExperienceSection";
 import ContactSection from "@/components/sections/ContactSection";
@@ -22,8 +23,12 @@ export default function Home() {
   // };
 
   return (
-    <div className="bg-zinc-900">
+    <div className="">
       <div className="grid h-screen w-screen place-items-center">
+        <div className="col-start-1 row-start-1 h-full w-full">
+          <InteractiveBackground />
+        </div>
+
         <div className="col-start-1 row-start-1 h-full w-full relative overflow-hidden">
           <div className={`absolute inset-0 ${currentObject === 3 ? '-translate-y-[14%]' : ''}`}>
             <Background3D 
