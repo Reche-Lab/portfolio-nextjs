@@ -56,7 +56,7 @@ export default function AboutSection() {
           <TitleFX
             as="h2"
             text={t("title")}
-            className="text-3xl font-bold tracking-tighter sm:text-5xl text-lime-400"
+            className="text-3xl font-bold tracking-tighter sm:text-5xl text-lime-300"
             hoverClassName="hover:scale-150 hover:text-emerald-300"
           />
           <TextFX
