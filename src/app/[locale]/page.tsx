@@ -8,6 +8,7 @@ import InteractiveBackground from "@/components/core/InteractiveBackground";
 import { useState } from "react";
 import AboutSection from "@/components/sections/AboutSection";
 import ExperienceSection from "@/components/sections/ExperienceSection";
+import ProjectsSection from "@/components/sections/ProjectsSection";
 import ContactSection from "@/components/sections/ContactSection";
 import FancyCursor from "@/components/ui/FancyCursor";
 import { TitleFX, TextFX } from "@/components/ui/typography";
@@ -73,6 +74,7 @@ export default function Home() {
       </div>
       <AboutSection />
       <ExperienceSection />
+      <ProjectsSection />
       <ContactSection />
     </div>
   );

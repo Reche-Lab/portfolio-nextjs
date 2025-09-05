@@ -75,7 +75,7 @@ export default function ExperienceSection() {
   const timelineData = t.raw("timeline") as TimelineItem[];
 
   return (
-    <section id="projects" className="w-full py-20 lg:py-32">
+    <section id="experience" className="w-full py-20 lg:py-32">
       <div className="container mx-auto px-4 md:px-6">
         <TitleFX
           as="h2"

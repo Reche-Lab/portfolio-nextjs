@@ -81,6 +81,26 @@
       }
     ]
   },
+  "Projects": {
+    "title": "Mis Proyectos",
+    "subtitle": "Una selección de proyectos reales.",
+    "description": "Aquí están algunos de mis proyectos recientes. Para ver más, visita mi GitHub.",
+    "viewMore": "Ver más en GitHub",
+    "projectsList": [
+      {
+        "title": "Tattoo Platform — Next.js + 3D minimalista",
+        "description": "Página con elementos 3D, diseño minimalista y sofisticado, enfocada en el rendimiento y en interacciones sutiles.",
+        "stack": ["Next.js", "React", "Three.js", "React Three Fiber", "Tailwind CSS", "Vercel"],
+        "url": "https://tattoo-platform.vercel.app/"
+      },
+      {
+        "title": "Pricing Pro — Fijación de precios con escala geométrica",
+        "description": "Aplicación web moderna para fijar precios con escala geométrica, cálculo de envío de Correios, generación de propuestas en PDF y copia rápida para WhatsApp.",
+        "stack": ["JavaScript", "Tailwind CSS", "API de Correios", "Generación de PDF", "Vercel"],
+        "url": "https://pricing-pro-vercel.vercel.app/"
+      }
+    ]
+  },
   "Contact": {
     "title": "Hablemos",
     "description": "Siempre estoy abierto a discutir nuevos proyectos, oportunidades de trabajo o simplemente intercambiar ideas. No dudes en ponerte en contacto.",

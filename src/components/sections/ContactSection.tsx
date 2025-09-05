@@ -40,14 +40,14 @@ export default function ContactSection() {
   ];
 
   return (
-    <section id="contact" className="w-full py-20 lg:py-32 bg-zinc-800">
+    <section id="contact" className="w-full py-20 lg:py-32">
       <div className="container mx-auto px-4 md:px-6 text-center">
         <div className="flex flex-col items-center space-y-6">
           <div className="space-y-3">
             <TitleFX
               as="h2"
               text={t("title")}
-              className="text-3xl font-bold tracking-tighter sm:text-5xl text-white"
+              className="text-3xl font-bold tracking-tighter sm:text-5xl text-lime-300"
               hoverClassName="hover:scale-125 hover:text-emerald-300"
             />
             <TitleFX
