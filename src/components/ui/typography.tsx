@@ -29,7 +29,7 @@ export function TextFX({
   hoverClassName = "hover:scale-110 hover:text-zinc-200",
 }: {
   text: string;
-  as?: "p" | "span" | "div";
+  as?: "p" | "span" | "div" | "h4";
   className?: string;
   hoverClassName?: string;
 }) {
