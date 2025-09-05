@@ -49,7 +49,7 @@ const InteractiveBackground = () => {
       },
       particles: {
         color: {
-          value: "#ffffff",
+          value: "#22c8faff",
         },
         move: {
           direction: "none",

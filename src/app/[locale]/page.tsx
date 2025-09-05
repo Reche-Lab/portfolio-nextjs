@@ -12,7 +12,7 @@ import ContactSection from "@/components/sections/ContactSection";
 
 export default function Home() {
   const t = useTranslations("Hero");
-  const [currentObject] = useState(2);
+  const [currentObject] = useState(3);
   // const objectKeys = ["icosahedron", "prism", "globe", "black-dragon"] as const;
 
   // const [isObjectHovered, setIsObjectHovered] = useState(false);

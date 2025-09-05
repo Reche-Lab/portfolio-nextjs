@@ -1,43 +1,33 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { useGLTF, useAnimations, Edges, Bounds, Center } from "@react-three/drei";
+import {
+  useGLTF,
+  useAnimations,
+  Edges,
+  Bounds,
+  Center,
+  useProgress,
+  Preload,
+} from "@react-three/drei";
 
-// ============================================================================
-// TIPOS E PROPS (Simplificados)
-// ============================================================================
+// -------- Tipos --------
+type ShapeProps = { color: string };
 
-// A prop 'onHoverChange' não é mais necessária, então podemos removê-la.
-type ShapeProps = { 
-  color: string;
-};
-
-// ============================================================================
-// COMPONENTES DE OBJETO 3D (Sem Interação)
-// ============================================================================
-
+// -------- Objetos --------
 function InteractiveIcosahedron({ color }: ShapeProps) {
   const meshRef = useRef<THREE.Mesh>(null!);
-
-  useFrame((state, delta) => {
+  useFrame((_, d) => {
     if (!meshRef.current) return;
-    meshRef.current.rotation.y += delta * 0.3;
-    meshRef.current.rotation.x += delta * 0.1;
+    meshRef.current.rotation.y += d * 0.3;
+    meshRef.current.rotation.x += d * 0.1;
   });
-
   return (
-    // ✅ Eventos de ponteiro removidos daqui
     <mesh ref={meshRef} scale={1.5}>
       <icosahedronGeometry args={[1, 0]} />
-      <meshStandardMaterial 
-        color={color}
-        transparent 
-        opacity={0.5} 
-        roughness={0.5} 
-        metalness={0.8} 
-      />
+      <meshStandardMaterial color={color} transparent opacity={0.5} roughness={0.5} metalness={0.8} />
       <Edges scale={1.1} color={color} />
     </mesh>
   );
@@ -45,25 +35,14 @@ function InteractiveIcosahedron({ color }: ShapeProps) {
 
 function InteractivePrism({ color }: ShapeProps) {
   const meshRef = useRef<THREE.Mesh>(null!);
-
-  useFrame((state, delta) => {
+  useFrame(() => {
     if (!meshRef.current) return;
-    meshRef.current.rotation.y += delta * 0.2;
-    // A escala agora é fixa, pois não há mais clique
     meshRef.current.scale.set(0.15, 0.15, 0.15);
   });
-
   return (
-    // ✅ Eventos de ponteiro removidos daqui
     <mesh ref={meshRef} scale={0.5} rotation={[0.2, 0, 0]}>
       <cylinderGeometry args={[0, 5, 10, 7]} />
-      <meshStandardMaterial
-        color={color}
-        transparent
-        opacity={0.7}
-        roughness={0.5}
-        metalness={1}
-      />
+      <meshStandardMaterial color={color} transparent opacity={0.7} roughness={0.5} metalness={1} />
       <Edges scale={1.2} color={color} />
     </mesh>
   );
@@ -72,18 +51,14 @@ function InteractivePrism({ color }: ShapeProps) {
 function HologramGlobe({ color }: ShapeProps) {
   const { scene } = useGLTF("/assets/models/earth_globe_hologram.glb");
   const groupRef = useRef<THREE.Group>(null!);
-
-  useFrame((state, delta) => {
+  useFrame((_, d) => {
     if (!groupRef.current) return;
-    groupRef.current.rotation.y += delta * 0.3;
-    // A escala agora é fixa
+    groupRef.current.rotation.y += d * 0.3;
     groupRef.current.scale.set(1, 1, 1);
   });
-
   return (
-    // ✅ Eventos de ponteiro removidos daqui
     <group ref={groupRef}>
-      <primitive object={scene} scale={1.5} color={color} />
+      <primitive object={scene} scale={1.5} />
     </group>
   );
 }
@@ -96,77 +71,97 @@ function BlackDragon({ color }: ShapeProps) {
   useEffect(() => {
     scene.traverse((child) => {
       if ((child as THREE.Mesh).isMesh) {
-        const material = (child as THREE.Mesh).material as THREE.MeshStandardMaterial;
-        material.transparent = false;
-        material.opacity = 10;
-        if (material.emissive) {
-          material.emissiveIntensity = 0.5;
-        }
+        const mat = (child as THREE.Mesh).material as THREE.MeshStandardMaterial;
+        mat.transparent = false;
+        mat.opacity = 1;
+        if (mat.emissive) mat.emissiveIntensity = 0.5;
       }
     });
   }, [scene]);
 
   useEffect(() => {
-    const firstAnimation = Object.keys(actions)[0];
-    if (firstAnimation) {
-      actions[firstAnimation]?.play();
-    }
+    const first = Object.keys(actions)[0];
+    if (first) actions[first]?.play();
   }, [actions]);
-
-  // A animação de escala no clique foi removida
-  useFrame((state, delta) => {
-    if (!groupRef.current) return;
-    // A escala agora é fixa
-    groupRef.current.scale.set(1, 1, 1);
-  });
 
   return (
     <group ref={groupRef}>
-      {/* ✅ Eventos de ponteiro removidos daqui */}
-      <primitive
-        object={scene}
-        scale={1.5}
-        rotation={[0.95, 0, 0]}
-      />
+      <primitive object={scene} scale={1.5} rotation={[0.95, 0, 0]} />
     </group>
   );
 }
 
-// ============================================================================
-// COMPONENTE PRINCIPAL (Simplificado)
-// ============================================================================
+// -------- Sub-cena (facilita Suspense + key) --------
+function Scene({ currentObject }: { currentObject: number }) {
+  return currentObject === 3 ? (
+    <Bounds fit clip observe margin={0.8}>
+      <Center>
+        <BlackDragon color="#ff4dff" />
+      </Center>
+    </Bounds>
+  ) : (
+    <>
+      {currentObject === 0 && <InteractiveIcosahedron color="#00ffff" />}
+      {currentObject === 1 && <InteractivePrism color="#00ffff" />}
+      {currentObject === 2 && <HologramGlobe color="#4d94ff" />}
+    </>
+  );
+}
 
-export default function Background3D({
-  currentObject,
-}: {
-  currentObject: number;
-  // ✅ A prop 'onObjectHover' não é mais necessária
-}) {
+// -------- Principal com FADE + BLUR --------
+export default function Background3D({ currentObject }: { currentObject: number }) {
   const cameraPosition: [number, number, number] = [0, 0, 5];
 
+  // "active" = true enquanto ainda há assets sendo carregados em qualquer Suspense
+  const { active } = useProgress();
+
+  // controle visual do container do Canvas
+  const [visible, setVisible] = useState(false);
+
+  // ao trocar de objeto, recomeça o ciclo (fica oculto até carregar)
+  useEffect(() => {
+    setVisible(false);
+  }, [currentObject]);
+
+  // quando terminar de carregar, revela com um pequeno atraso para garantir transição
+  useEffect(() => {
+    if (!active) {
+      const id = setTimeout(() => {
+        // garante um frame com opacity 0/blur aplicado
+        requestAnimationFrame(() => setVisible(true));
+      }, 80); // ajuste fino do "timing" perceptual
+      return () => clearTimeout(id);
+    } else {
+      setVisible(false);
+    }
+  }, [active]);
+
   return (
-    // ✅ Adicionamos 'pointer-events-none' ao container do Canvas como uma garantia extra.
-    // Isso assegura que todo o canvas 3D seja transparente para eventos do mouse.
-    <div className="h-full w-full pointer-events-none">
-      <Canvas camera={{ position: cameraPosition, fov: 50 }}>
+    <div
+      className="h-full w-full pointer-events-none"
+      style={{
+        opacity: visible ? 1 : 0,
+        filter: visible ? "blur(0px)" : "blur(12px)",
+        transition:
+          "opacity 900ms cubic-bezier(.22,.61,.36,1), filter 5000ms cubic-bezier(.22,.61,.36,1)",
+        willChange: "opacity, filter",
+        // previne flash do background da página enquanto carrega:
+        background: "transparent",
+      }}
+    >
+      <Canvas
+        camera={{ position: cameraPosition, fov: 50 }}
+        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+      >
         <ambientLight intensity={1} />
         <pointLight position={[10, 10, 10]} intensity={150} color="#00ffff" />
         <pointLight position={[-10, -10, -10]} intensity={100} color="#ffffff" />
 
-        {currentObject === 3 ? (
-          <Bounds fit clip observe margin={0.8}>
-            <Center>
-              {/* ✅ A prop 'onHoverChange' foi removida */}
-              <BlackDragon color="#ff4dff" />
-            </Center>
-          </Bounds>
-        ) : (
-          <>
-            {currentObject === 0 && <InteractiveIcosahedron color="#00ffff" />}
-            {currentObject === 1 && <InteractivePrism color="#00ffff" />}
-            {currentObject === 2 && <HologramGlobe color="#4d94ff" />}
-          </>
-        )}
+        <Suspense fallback={null}>
+          {/* forçar remontagem ao trocar objeto = reinicia progresso */}
+          <Scene key={currentObject} currentObject={currentObject} />
+          <Preload all />
+        </Suspense>
       </Canvas>
     </div>
   );
