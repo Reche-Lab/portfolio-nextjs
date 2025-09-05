@@ -6,43 +6,30 @@ import * as THREE from "three";
 import { useGLTF, useAnimations, Edges, Bounds, Center } from "@react-three/drei";
 
 // ============================================================================
-// TIPOS E PROPS
+// TIPOS E PROPS (Simplificados)
 // ============================================================================
 
-// Prop `onHoverChange` adicionada para comunicar o estado de hover para o pai.
-type ShapeProps = {
+// A prop 'onHoverChange' não é mais necessária, então podemos removê-la.
+type ShapeProps = { 
   color: string;
-  onHoverChange: (isHovered: boolean) => void;
 };
 
 // ============================================================================
-// COMPONENTES DE OBJETO 3D (Refatorados)
+// COMPONENTES DE OBJETO 3D (Sem Interação)
 // ============================================================================
 
-function InteractiveIcosahedron({ color, onHoverChange }: ShapeProps) {
+function InteractiveIcosahedron({ color }: ShapeProps) {
   const meshRef = useRef<THREE.Mesh>(null!);
-  const [isClicked, setIsClicked] = useState(false);
-  // O estado `isHovered` foi removido.
 
   useFrame((state, delta) => {
     if (!meshRef.current) return;
-    // A lógica de aceleração no hover foi removida para simplificar,
-    // pois o estado de hover agora é gerenciado pelo componente pai.
     meshRef.current.rotation.y += delta * 0.3;
     meshRef.current.rotation.x += delta * 0.1;
-    const targetScale = isClicked ? 1.2 : 1;
-    meshRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
   });
 
   return (
-    <mesh
-      ref={meshRef}
-      onPointerOver={() => onHoverChange(true)}
-      onPointerOut={() => onHoverChange(false)}
-      onPointerDown={() => setIsClicked(true)}
-      onPointerUp={() => setIsClicked(false)}
-      scale={1.5}
-    >
+    // ✅ Eventos de ponteiro removidos daqui
+    <mesh ref={meshRef} scale={1.5}>
       <icosahedronGeometry args={[1, 0]} />
       <meshStandardMaterial 
         color={color}
@@ -56,28 +43,19 @@ function InteractiveIcosahedron({ color, onHoverChange }: ShapeProps) {
   );
 }
 
-function InteractivePrism({ color, onHoverChange }: ShapeProps) {
+function InteractivePrism({ color }: ShapeProps) {
   const meshRef = useRef<THREE.Mesh>(null!);
-  const [isClicked, setIsClicked] = useState(false);
 
   useFrame((state, delta) => {
     if (!meshRef.current) return;
     meshRef.current.rotation.y += delta * 0.2;
-    // meshRef.current.rotation.x -= delta * 0.05;
-    const targetScale = isClicked ? 0.20 : 0.15;
-    meshRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
+    // A escala agora é fixa, pois não há mais clique
+    meshRef.current.scale.set(0.15, 0.15, 0.15);
   });
 
   return (
-    <mesh
-      ref={meshRef}
-      onPointerOver={() => onHoverChange(true)}
-      onPointerOut={() => onHoverChange(false)}
-      onPointerDown={() => setIsClicked(true)}
-      onPointerUp={() => setIsClicked(false)}
-      scale={0.5}
-      rotation={[0.2, 0, 0]}
-    >
+    // ✅ Eventos de ponteiro removidos daqui
+    <mesh ref={meshRef} scale={0.5} rotation={[0.2, 0, 0]}>
       <cylinderGeometry args={[0, 5, 10, 7]} />
       <meshStandardMaterial
         color={color}
@@ -91,43 +69,36 @@ function InteractivePrism({ color, onHoverChange }: ShapeProps) {
   );
 }
 
-function HologramGlobe({ color, onHoverChange }: ShapeProps) {
+function HologramGlobe({ color }: ShapeProps) {
   const { scene } = useGLTF("/assets/models/earth_globe_hologram.glb");
   const groupRef = useRef<THREE.Group>(null!);
-  const [isClicked, setIsClicked] = useState(false);
 
   useFrame((state, delta) => {
     if (!groupRef.current) return;
     groupRef.current.rotation.y += delta * 0.3;
-    const targetScale = isClicked ? 1.3 : 1;
-    groupRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
+    // A escala agora é fixa
+    groupRef.current.scale.set(1, 1, 1);
   });
 
   return (
-    <group
-      ref={groupRef}
-      onPointerOver={() => onHoverChange(true)}
-      onPointerOut={() => onHoverChange(false)}
-      onPointerDown={() => setIsClicked(true)}
-      onPointerUp={() => setIsClicked(false)}
-    >
+    // ✅ Eventos de ponteiro removidos daqui
+    <group ref={groupRef}>
       <primitive object={scene} scale={1.5} color={color} />
     </group>
   );
 }
 
-function BlackDragon({ color, onHoverChange }: ShapeProps) {
+function BlackDragon({ color }: ShapeProps) {
   const groupRef = useRef<THREE.Group>(null!);
   const { scene, animations } = useGLTF("/assets/models/black_dragon.glb");
   const { actions } = useAnimations(animations, groupRef);
-  const [isClicked, setIsClicked] = useState(false);
 
   useEffect(() => {
     scene.traverse((child) => {
       if ((child as THREE.Mesh).isMesh) {
         const material = (child as THREE.Mesh).material as THREE.MeshStandardMaterial;
         material.transparent = false;
-        material.opacity = 1;
+        material.opacity = 10;
         if (material.emissive) {
           material.emissiveIntensity = 0.5;
         }
@@ -142,42 +113,41 @@ function BlackDragon({ color, onHoverChange }: ShapeProps) {
     }
   }, [actions]);
 
+  // A animação de escala no clique foi removida
   useFrame((state, delta) => {
     if (!groupRef.current) return;
-    const targetScale = isClicked ? 1.5 : 1;
-    groupRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
+    // A escala agora é fixa
+    groupRef.current.scale.set(1, 1, 1);
   });
 
   return (
     <group ref={groupRef}>
+      {/* ✅ Eventos de ponteiro removidos daqui */}
       <primitive
         object={scene}
         scale={1.5}
         rotation={[0.95, 0, 0]}
-        onPointerOver={() => onHoverChange(true)}
-        onPointerOut={() => onHoverChange(false)}
-        onPointerDown={() => setIsClicked(true)}
-        onPointerUp={() => setIsClicked(false)}
       />
     </group>
   );
 }
 
 // ============================================================================
-// COMPONENTE PRINCIPAL (Refatorado)
+// COMPONENTE PRINCIPAL (Simplificado)
 // ============================================================================
 
 export default function Background3D({
   currentObject,
-  onObjectHover,
 }: {
   currentObject: number;
-  onObjectHover: (isHovered: boolean) => void;
+  // ✅ A prop 'onObjectHover' não é mais necessária
 }) {
   const cameraPosition: [number, number, number] = [0, 0, 5];
 
   return (
-    <div className="h-full w-full">
+    // ✅ Adicionamos 'pointer-events-none' ao container do Canvas como uma garantia extra.
+    // Isso assegura que todo o canvas 3D seja transparente para eventos do mouse.
+    <div className="h-full w-full pointer-events-none">
       <Canvas camera={{ position: cameraPosition, fov: 50 }}>
         <ambientLight intensity={1} />
         <pointLight position={[10, 10, 10]} intensity={150} color="#00ffff" />
@@ -186,14 +156,15 @@ export default function Background3D({
         {currentObject === 3 ? (
           <Bounds fit clip observe margin={0.8}>
             <Center>
-              <BlackDragon color="#ff4dff" onHoverChange={onObjectHover} />
+              {/* ✅ A prop 'onHoverChange' foi removida */}
+              <BlackDragon color="#ff4dff" />
             </Center>
           </Bounds>
         ) : (
           <>
-            {currentObject === 0 && <InteractiveIcosahedron color="#00ffff" onHoverChange={onObjectHover} />}
-            {currentObject === 1 && <InteractivePrism color="#00ffff" onHoverChange={onObjectHover} />}
-            {currentObject === 2 && <HologramGlobe color="#4d94ff" onHoverChange={onObjectHover} />}
+            {currentObject === 0 && <InteractiveIcosahedron color="#00ffff" />}
+            {currentObject === 1 && <InteractivePrism color="#00ffff" />}
+            {currentObject === 2 && <HologramGlobe color="#4d94ff" />}
           </>
         )}
       </Canvas>
