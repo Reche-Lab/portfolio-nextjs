@@ -48,7 +48,7 @@ function InteractivePrism({ color }: ShapeProps) {
   );
 }
 
-function HologramGlobe({ color }: ShapeProps) {
+function HologramGlobe({ }: ShapeProps) {
   const { scene } = useGLTF("/assets/models/earth_globe_hologram.glb");
   const groupRef = useRef<THREE.Group>(null!);
   useFrame((_, d) => {
@@ -63,7 +63,7 @@ function HologramGlobe({ color }: ShapeProps) {
   );
 }
 
-function BlackDragon({ color }: ShapeProps) {
+function BlackDragon({ }: ShapeProps) {
   const groupRef = useRef<THREE.Group>(null!);
   const { scene, animations } = useGLTF("/assets/models/black_dragon.glb");
   const { actions } = useAnimations(animations, groupRef);
