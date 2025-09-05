@@ -9,6 +9,8 @@ import { useState } from "react";
 import AboutSection from "@/components/sections/AboutSection";
 import ExperienceSection from "@/components/sections/ExperienceSection";
 import ContactSection from "@/components/sections/ContactSection";
+import FancyCursor from "@/components/ui/FancyCursor";
+
 
 export default function Home() {
   const t = useTranslations("Hero");
@@ -23,7 +25,8 @@ export default function Home() {
   // };
 
   return (
-    <div className="">
+    <div className="creative-cursor">
+      <FancyCursor />
       <div className="grid h-screen w-screen place-items-center">
         <div className="col-start-1 row-start-1 h-full w-full">
           <InteractiveBackground />
