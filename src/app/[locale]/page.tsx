@@ -10,6 +10,7 @@ import AboutSection from "@/components/sections/AboutSection";
 import ExperienceSection from "@/components/sections/ExperienceSection";
 import ContactSection from "@/components/sections/ContactSection";
 import FancyCursor from "@/components/ui/FancyCursor";
+import HoverText from "@/components/ui/HoverText";
 
 
 export default function Home() {
@@ -41,12 +42,22 @@ export default function Home() {
         {/* Ocupa a MESMA célula, ficando por cima */}
         <div className="relative col-start-1 row-start-1 flex flex-col items-center space-y-6 p-6 text-center text-white">
           <div className="space-y-4">
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl text-lime-400">
-              {t("title")}
-            </h1>
-            <p className="max-w-8xl text-lg text-zinc-500 md:text-xl">
-              {t("subtitle")}
-            </p>
+            <HoverText
+              as="h1"
+              text={t("title")}
+              split="char" // ou "char" se preferir letra por letra
+              className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl text-lime-400"
+              // classes de hover por token:
+              hoverClassName="hover:scale-125 hover:text-emerald-300 hover:-translate-y-0.5"
+            />
+
+            <HoverText
+              as="p"
+              text={t("subtitle")}
+              split="word" // para parágrafos, "word" fica mais leve
+              className="max-w-4xl text-lg text-zinc-500 md:text-xl mx-auto"
+              hoverClassName="hover:scale-110 hover:text-zinc-200"
+            />
           </div>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
