@@ -15,15 +15,7 @@ import FancyCursor from "@/components/ui/FancyCursor";
 export default function Home() {
   const t = useTranslations("Hero");
   const [currentObject] = useState(3);
-  // const objectKeys = ["icosahedron", "prism", "globe", "black-dragon"] as const;
-
-  // const [isObjectHovered, setIsObjectHovered] = useState(false);
-  // const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  // const handleMouseMove = (e: React.MouseEvent) => {
-  //   setMousePosition({ x: e.clientX, y: e.clientY });
-  // };
-
+  
   return (
     <div className="creative-cursor">
       <FancyCursor />
@@ -49,23 +41,23 @@ export default function Home() {
         {/* Ocupa a MESMA célula, ficando por cima */}
         <div className="relative col-start-1 row-start-1 flex flex-col items-center space-y-6 p-6 text-center text-white">
           <div className="space-y-4">
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl text-amber-400">
+            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl text-lime-400">
               {t("title")}
             </h1>
-            <p className="max-w-8xl text-lg text-zinc-300 md:text-xl">
+            <p className="max-w-8xl text-lg text-zinc-500 md:text-xl">
               {t("subtitle")}
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
               href="/#projects"
-              className="inline-flex items-center justify-center rounded-md bg-white px-8 py-3 text-base font-medium text-zinc-900 shadow-sm transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-zinc-900"
+              className="inline-flex items-center justify-center rounded-md bg-yellow-500 px-8 py-3 text-base font-medium text-zinc-900 shadow-sm transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-zinc-900"
             >
               {t("cta.projects")}
             </Link>
             <Link
               href="/#contact"
-              className="inline-flex items-center justify-center rounded-md border border-zinc-300 bg-transparent px-8 py-3 text-base font-medium text-zinc-300 transition-colors hover:bg-zinc-800 hover:text-white focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:ring-offset-2 focus:ring-offset-zinc-900"
+              className="inline-flex items-center justify-center rounded-md border border-yellow-500 bg-transparent px-8 py-3 text-base font-medium text-yellow-500 transition-colors hover:bg-zinc-800 hover:text-yellow-500 focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:ring-offset-2 focus:ring-offset-zinc-900"
             >
               {t("cta.contact")}
             </Link>
