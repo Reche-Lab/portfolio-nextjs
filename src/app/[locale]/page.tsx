@@ -59,13 +59,18 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
               href="/#projects"
-              className="inline-flex items-center justify-center rounded-md bg-yellow-500 px-8 py-3 text-base font-medium text-zinc-900 shadow-sm transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-zinc-900"
+              className="inline-flex items-center justify-center rounded-md bg-yellow-400 px-8 py-3 text-base 
+                font-medium text-zinc-900 shadow-sm transition-transform hover:scale-110 hover:font-bold focus:outline-none 
+                focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-zinc-900"
             >
               {t("cta.projects")}
             </Link>
             <Link
               href="/#contact"
-              className="inline-flex items-center justify-center rounded-md border border-yellow-500 bg-transparent px-8 py-3 text-base font-medium text-yellow-500 transition-colors hover:bg-zinc-800 hover:text-yellow-500 focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:ring-offset-2 focus:ring-offset-zinc-900"
+              className="inline-flex items-center justify-center rounded-md border border-yellow-400 
+                bg-transparent px-8 py-3 text-base font-medium text-yellow-400 transition-colors 
+                transition-transform hover:scale-90 hover:font-bold focus:outline-none focus:ring-2 
+                focus:ring-zinc-300 focus:ring-offset-2 focus:ring-offset-zinc-900"
             >
               {t("cta.contact")}
             </Link>
