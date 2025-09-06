@@ -17,7 +17,7 @@ import { TitleFX, TextFX } from "@/components/ui/typography";
 
 export default function Home() {
   const t = useTranslations("Hero");
-  const [currentObject] = useState(3);
+  const [currentObject] = useState(2);
   
   return (
     <div className="creative-cursor">
