@@ -12,12 +12,17 @@ type TimelineItem = {
 };
 
 const ExperienceCard = ({ item, index }: { item: TimelineItem; index: number }) => {
+  // Animação: mobile entra de baixo, desktop alterna esquerda/direita
+  const isRight = index % 2 !== 0;
   const cardVariants = {
-    hidden: { opacity: 0, x: index % 2 === 0 ? -100 : 100 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.6 } },
+    hidden: { opacity: 0, y: 20, x: 0 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      x: 0,
+      transition: { duration: 0.6 }
+    },
   };
-
-  const side = index % 2 === 0 ? "left" : "right";
 
   return (
     <motion.div
@@ -27,17 +32,17 @@ const ExperienceCard = ({ item, index }: { item: TimelineItem; index: number }) 
       viewport={{ once: false, amount: 0.3 }}
       variants={cardVariants}
     >
-      {/* Conector horizontal até a linha central */}
+      {/* Conector horizontal (desktop apenas) */}
       <div
-        className={`absolute top-5 h-0.5 w-4 bg-cyan-400 ${
-          side === "left" ? "right-full" : "left-full"
+        className={`absolute top-5 h-0.5 w-4 bg-cyan-400 hidden md:block ${
+          isRight ? "left-full" : "right-full"
         }`}
       />
 
-      {/* Ponto na linha central */}
+      {/* Ponto na linha central (desktop apenas) */}
       <div
-        className={`absolute top-3.5 h-5 w-5 rounded-full bg-cyan-400 border-4 border-zinc-800
-        ${side === "left" ? "-right-2.5" : "-left-2.5"}`}
+        className={`absolute top-3.5 h-5 w-5 rounded-full bg-cyan-400 border-4 border-zinc-800 hidden md:block
+        ${isRight ? "-left-2.5" : "-right-2.5"}`}
       />
 
       <div className="p-6 rounded-lg border border-zinc-700 bg-zinc-800 shadow-md">
@@ -85,15 +90,17 @@ export default function ExperienceSection() {
         />
 
         <div className="relative max-w-3xl mx-auto">
-          {/* Linha vertical central */}
-          <div className="absolute left-1/2 top-0 h-full w-0.5 -ml-px bg-zinc-700" />
+          {/* Linha vertical central: só no desktop */}
+          <div className="hidden md:block absolute left-1/2 top-0 h-full w-0.5 -ml-px bg-zinc-700" />
 
           {timelineData.map((item, index) => (
             <div
               key={index}
-              className={`relative w-1/2 ${
-                index % 2 === 0 ? "pr-8 text-right ml-auto" : "pl-8"
-              }`}
+              className={`relative w-full md:w-1/2
+                ${index % 2 === 0
+                  ? "md:pr-8 md:text-right md:ml-auto"
+                  : "md:pl-8"
+                }`}
             >
               <ExperienceCard item={item} index={index} />
             </div>
