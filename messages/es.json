@@ -98,6 +98,12 @@
         "description": "Aplicación web moderna para fijar precios con escala geométrica, cálculo de envío de Correios, generación de propuestas en PDF y copia rápida para WhatsApp.",
         "stack": ["JavaScript", "Tailwind CSS", "API de Correios", "Generación de PDF", "Vercel"],
         "url": "https://pricing-pro-vercel.vercel.app/"
+      },
+      {
+        "title": "Hatha Yoga - Carina Reche",
+        "description": "Página moderna y minimalista para instructora de Hatha Yoga, con diseño suave, imagen de fondo con paralaje, interactividad sutil y foco en bienestar. Desarrollada para ofrecer una experiencia zen e informativa.",
+        "stack": ["Next.js", "React", "Three.js", "React Three Fiber", "Tailwind CSS", "Vercel"],
+        "url": "https://carina-reche-yoga.vercel.app/"
       }
     ]
   },

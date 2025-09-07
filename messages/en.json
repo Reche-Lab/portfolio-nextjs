@@ -98,6 +98,12 @@
         "description": "Modern web app to price products using a geometric scale, with Correios (Brazil Post) shipping calculation, PDF proposal generation, and one-click copy for WhatsApp.",
         "stack": ["JavaScript", "Tailwind CSS", "Correios (Brazil Post) API", "PDF Generation", "Vercel"],
         "url": "https://pricing-pro-vercel.vercel.app/"
+      },
+      {
+        "title": "Hatha Yoga - Carina Reche",
+        "description": "Modern and minimalist page for a Hatha Yoga instructor, with a soft design, parallax background image, subtle interactivity, and a focus on well-being. Developed to provide a zen and informative experience.",
+        "stack": ["Next.js", "React", "Three.js", "React Three Fiber", "Tailwind CSS", "Vercel"],
+        "url": "https://carina-reche-yoga.vercel.app/"
       }
     ]
   },
