@@ -18,6 +18,7 @@ export function TitleFX({
       split="char"         // títulos por LETRA
       className={className}
       hoverClassName={hoverClassName}
+      tapClassName="scale-105 text-emerald-300 -translate-y-0.5" // mobile
     />
   );
 }
@@ -40,6 +41,7 @@ export function TextFX({
       split="word"         // textos por PALAVRA
       className={className}
       hoverClassName={hoverClassName}
+      tapClassName="scale-105 text-zinc-200"
     />
   );
 }

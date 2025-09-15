@@ -65,7 +65,7 @@ const InteractiveBackground = () => {
           density: {
             enable: true,
           },
-          value: 150,
+          value: 500,
         },
         opacity: {
           value: 0.5,
@@ -74,7 +74,7 @@ const InteractiveBackground = () => {
           type: "circle",
         },
         size: {
-          value: { min: 1, max: 4 },
+          value: { min: 1, max: 5 },
         },
       },
       detectRetina: true,

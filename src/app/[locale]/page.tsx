@@ -48,7 +48,7 @@ export default function Home() {
               as="h1"
               text={t("title")}
               className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl text-lime-300"
-              hoverClassName="hover:scale-125 hover:text-emerald-300 hover:-translate-y-0.5"
+              hoverClassName="hover:scale-200 hover:text-emerald-300 hover:-translate-y-0.5"
             />
             <TextFX
               as="p"
