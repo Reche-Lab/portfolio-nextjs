@@ -1,77 +1,152 @@
 "use client";
 
-import { JSX, useEffect, useRef, useState } from "react";
-import { motion, useAnimationControls } from "framer-motion";
 import clsx from "clsx";
+import { motion, useAnimationControls } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import type { ComponentType, JSX, ReactNode } from "react";
+import { useTextChunks } from "./useTextChunks";
+import { useSupportsHover } from "./useSupportsHover";
 
-type Props = {
+export type BoomerangTextProps = {
   text: string;
-  as?: keyof JSX.IntrinsicElements | React.ElementType; // "h1","h2","p", etc.
-  className?: string;                   // classes do container
-  tokenClassName?: string;              // classes de cada token
-  split?: "char" | "word";              // padrão: char (títulos)
-  distance?: number;                    // distância “arremesso” em px (default 240)
+  as?: keyof JSX.IntrinsicElements | React.ElementType;
+  className?: string;
+  tokenClassName?: string;
+  split?: "char" | "word";
+  distance?: number;
+  hoverClassName?: string;
+  activeClassName?: string;
+  tapClassName?: string;
+  tapDurationMs?: number;
+};
+
+type TokenProps = {
+  value: string;
+  distance: number;
+  className?: string;
+  hoverClassName: string;
+  activeClassName: string;
+  tapClassName: string;
+  tapDurationMs: number;
+  supportsHover: boolean;
+  disabled: boolean;
 };
 
 function Token({
-  children,
-  distance = 240,
+  value,
+  distance,
   className,
-}: {
-  children: string;
-  distance?: number;
-  className?: string;
-}) {
+  hoverClassName,
+  activeClassName,
+  tapClassName,
+  tapDurationMs,
+  supportsHover,
+  disabled,
+}: TokenProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const controls = useAnimationControls();
+  const [isActive, setIsActive] = useState(false);
+  const timeoutRef = useRef<number | null>(null);
 
-  const onPointerDown = (e: React.PointerEvent) => {
-    const el = ref.current;
-    if (!el) return;
+  const clearTimer = () => {
+    if (timeoutRef.current) {
+      window.clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+  };
 
-    const r = el.getBoundingClientRect();
-    const cx = r.left + r.width / 2;
-    const cy = r.top + r.height / 2;
+  const startActive = (forceTimeout = false) => {
+    clearTimer();
+    setIsActive(true);
+    if (!supportsHover || forceTimeout) {
+      timeoutRef.current = window.setTimeout(() => {
+        setIsActive(false);
+        timeoutRef.current = null;
+      }, tapDurationMs);
+    }
+  };
 
-    let dx = e.clientX - cx;
-    let dy = e.clientY - cy;
-    const len = Math.hypot(dx, dy) || 1;
-    dx /= len;
-    dy /= len;
+  const endActive = () => {
+    clearTimer();
+    setIsActive(false);
+  };
 
-    // distância + leve aleatoriedade pra ficar orgânico
-    const d = distance * (0.85 + Math.random() * 0.3);
-    const outX = dx * d;
-    const outY = dy * d;
-    const rot = (Math.random() * 2 - 1) * 24; // -24..24 graus
+  useEffect(
+    () => () => {
+      clearTimer();
+    },
+    []
+  );
+
+  const handlePointerDown = async (
+    event: React.PointerEvent<HTMLSpanElement>
+  ) => {
+    if (disabled) {
+      startActive(true);
+      return;
+    }
+
+    const element = ref.current;
+    if (!element) return;
+
+    startActive(false);
+
+    const rect = element.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    let dx = event.clientX - centerX;
+    let dy = event.clientY - centerY;
+    const length = Math.hypot(dx, dy) || 1;
+    dx /= length;
+    dy /= length;
+
+    const magnitude = distance * (0.85 + Math.random() * 0.3);
+    const outX = dx * magnitude;
+    const outY = dy * magnitude;
+    const rotation = (Math.random() * 2 - 1) * 24;
 
     controls.stop();
-    controls.set({ x: 0, y: 0, rotate: 0 });
+    controls.set({ x: 0, y: 0, rotate: 0, scale: 1 });
 
-    controls.start({
+    await controls.start({
       x: [0, outX, 0],
       y: [0, outY, 0],
-      rotate: [0, rot, 0],
+      rotate: [0, rotation, 0],
+      scale: [1, 1.12, 1],
       transition: {
-        duration: 0.95,
-        times: [0, 0.6, 1],
-        ease: ["easeOut", [0.22, 0.61, 0.36, 1]], // saída rápida, volta macia
+        duration: 1,
+        times: [0, 0.55, 1],
+        ease: ["easeOut", [0.22, 0.61, 0.36, 1]],
       },
     });
+
+    if (supportsHover) {
+      endActive();
+    }
   };
+
+  const highlightClass = supportsHover ? hoverClassName : "";
+  const activeClass = isActive
+    ? supportsHover
+      ? activeClassName
+      : tapClassName || activeClassName
+    : "";
 
   return (
     <motion.span
       ref={ref}
-      onPointerDown={onPointerDown}
+      onPointerDown={handlePointerDown}
       animate={controls}
       className={clsx(
-        "inline-block select-none cursor-default will-change-transform transform-gpu transition-colors duration-200",
-        className
+        "inline-block cursor-default select-none will-change-transform transform-gpu transition-colors duration-200",
+        className,
+        highlightClass,
+        activeClass
       )}
       style={{ transformOrigin: "center bottom" }}
     >
-      {children}
+      {value}
     </motion.span>
   );
 }
@@ -80,43 +155,79 @@ export default function BoomerangText({
   text,
   as: Tag = "span",
   className = "",
-  tokenClassName = "hover:scale-125 hover:text-emerald-300",
+  tokenClassName = "",
   split = "char",
   distance = 400,
-}: Props) {
-  const TagComponent = Tag as React.ComponentType<{ className?: string; "aria-label"?: string; children?: React.ReactNode }>;
-  const [enabled, setEnabled] = useState(true);
+  hoverClassName = "hover:scale-125 hover:text-emerald-300 hover:-translate-y-0.5",
+  activeClassName = "scale-125 text-emerald-300 -translate-y-0.5",
+  tapClassName = "scale-125 text-emerald-300 -translate-y-0.5",
+  tapDurationMs = 260,
+}: BoomerangTextProps) {
+  const supportsHover = useSupportsHover();
+  const chunks = useTextChunks(text, split);
+  const [boomerangEnabled, setBoomerangEnabled] = useState(true);
+
   useEffect(() => {
-    // respeita prefers-reduced-motion
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const apply = () => setEnabled(!mq.matches);
+    const apply = () => setBoomerangEnabled(!mq.matches);
     apply();
     mq.addEventListener?.("change", apply);
     return () => mq.removeEventListener?.("change", apply);
   }, []);
 
-  const tokens =
-    split === "word" ? text.split(/(\s+)/) : Array.from(text); // preserva espaços
+  const TagComponent = Tag as ComponentType<{
+    className?: string;
+    children?: ReactNode;
+    "aria-label"?: string;
+  }>;
 
   return (
-    <TagComponent className={className} aria-label={text}>
-      {tokens.map((tok, i) => {
-        const isSpace = /\s+/.test(tok);
-        if (isSpace) return <span key={`sp-${i}`}>{tok}</span>;
+    <TagComponent
+      className={clsx("select-none break-keep", className)}
+      aria-label={text}
+    >
+      {chunks.map((chunk) => {
+        if (chunk.type === "space") {
+          return <span key={chunk.id}>{chunk.value}</span>;
+        }
 
-        if (!enabled) {
-          // fallback sem animação
+        if (chunk.chars) {
           return (
-            <span key={`t-${i}`} className={clsx("inline-block", tokenClassName)}>
-              {tok}
+            <span
+              key={`group-${chunk.id}`}
+              className="inline-block whitespace-nowrap"
+            >
+              {chunk.chars.map((char) => (
+                <Token
+                  key={char.id}
+                  value={char.value}
+                  distance={distance}
+                  className={tokenClassName}
+                  hoverClassName={hoverClassName}
+                  activeClassName={activeClassName}
+                  tapClassName={tapClassName}
+                  tapDurationMs={tapDurationMs}
+                  supportsHover={supportsHover}
+                  disabled={!boomerangEnabled}
+                />
+              ))}
             </span>
           );
         }
 
         return (
-          <Token key={`t-${i}`} distance={distance} className={tokenClassName}>
-            {tok}
-          </Token>
+          <Token
+            key={chunk.id}
+            value={chunk.value}
+            distance={distance}
+            className={tokenClassName}
+            hoverClassName={hoverClassName}
+            activeClassName={activeClassName}
+            tapClassName={tapClassName}
+            tapDurationMs={tapDurationMs}
+            supportsHover={supportsHover}
+            disabled={!boomerangEnabled}
+          />
         );
       })}
     </TagComponent>

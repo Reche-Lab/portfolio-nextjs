@@ -49,12 +49,26 @@ export default function Home() {
               text={t("title")}
               className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl text-lime-300"
               hoverClassName="hover:scale-200 hover:text-emerald-300 hover:-translate-y-0.5"
+              mode="boomerang"
+              boomerangOptions={{
+                distance: 420,
+                activeClassName: "scale-200 text-emerald-300 -translate-y-0.5",
+                tapClassName: "scale-200 text-emerald-300 -translate-y-0.5",
+                tokenClassName: "transition-transform duration-200 ease-out",
+              }}
             />
             <TextFX
               as="p"
               text={t("subtitle")}
               className="max-w-4xl text-lg text-zinc-500 md:text-xl mx-auto"
               hoverClassName="hover:scale-110 hover:text-zinc-200"
+              mode="boomerang"
+              boomerangOptions={{
+                distance: 300,
+                activeClassName: "scale-125 text-zinc-100",
+                tapClassName: "scale-125 text-zinc-100",
+                tokenClassName: "transition-transform duration-200 ease-out",
+              }}
             />
           </div>
           <div className="flex flex-col sm:flex-row gap-4">

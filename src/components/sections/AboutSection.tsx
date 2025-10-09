@@ -58,12 +58,14 @@ export default function AboutSection() {
             text={t("title")}
             className="text-3xl font-bold tracking-tighter sm:text-5xl text-lime-300"
             hoverClassName="hover:scale-150 hover:text-emerald-300"
+            mode="boomerang"
           />
           <TextFX
             as="p"
             text={t("introduction")}
             className="mt-4 max-w-3xl text-zinc-300 md:text-xl/relaxed"
             hoverClassName="hover:scale-[1.1] hover:text-yellow-500"
+            mode="boomerang"
           />
         </div>
 
@@ -74,6 +76,7 @@ export default function AboutSection() {
             text={t("educationTitle")}
             className="text-2xl font-bold text-cyan-300"
             hoverClassName="hover:scale-200 hover:text-emerald-300"
+            mode="boomerang"
           />
           <div className="mt-6 space-y-6">
             {Array.isArray(educationData) &&
@@ -84,18 +87,21 @@ export default function AboutSection() {
                     text={edu.degree}
                     className="text-lg font-semibold text-zinc-100"
                     hoverClassName="hover:scale-110 hover:text-cyan-500"
+                    mode="boomerang"
                   />
                   <TextFX
                     as="p"
                     text={edu.institution}
                     className="text-md text-zinc-300"
                     hoverClassName="hover:scale-[1.25] hover:text-cyan-200"
+                    mode="boomerang"
                   />
                   <TextFX
                     as="p"
                     text={edu.period}
                     className="text-sm text-zinc-400"
                     hoverClassName="hover:text-zinc-300"
+                    mode="boomerang"
                   />
                 </div>
               ))}
@@ -109,6 +115,7 @@ export default function AboutSection() {
             text={t("skillsTitle")}
             className="text-2xl font-bold text-cyan-300"
             hoverClassName="hover:scale-200 hover:text-emerald-300"
+            mode="boomerang"
           />
           <div className="mt-6 space-y-8">
             {skillsData &&
@@ -121,6 +128,7 @@ export default function AboutSection() {
                       text={category.title}
                       className="font-semibold text-zinc-200 mb-4"
                       hoverClassName="hover:scale-110 hover:text-lime-500"
+                      mode="boomerang"
                     />
                     <div className="flex flex-wrap gap-3">
                       {Array.isArray(category.items) &&

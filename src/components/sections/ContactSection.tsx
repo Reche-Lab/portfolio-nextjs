@@ -26,6 +26,7 @@ const ContactLink = ({
       text={text}
       className="text-lg font-medium text-zinc-100"
       hoverClassName="hover:text-white hover:scale-105"
+      mode="boomerang"
     />
   </a>
 );
@@ -49,12 +50,14 @@ export default function ContactSection() {
               text={t("title")}
               className="text-3xl font-bold tracking-tighter sm:text-5xl text-lime-300"
               hoverClassName="hover:scale-125 hover:text-emerald-300"
+              mode="boomerang"
             />
             <TitleFX
               as="h3"
               text={t("description")}
               className="mx-auto max-w-[700px] text-zinc-300 md:text-xl"
               hoverClassName="hover:scale-300 hover:text-yellow-200 hover:font-bold"
+              mode="boomerang"
             />
           </div>
 

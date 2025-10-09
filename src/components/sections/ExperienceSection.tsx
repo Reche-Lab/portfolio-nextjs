@@ -51,24 +51,28 @@ const ExperienceCard = ({ item, index }: { item: TimelineItem; index: number }) 
           text={item.period}
           className="text-sm font-semibold text-cyan-400 mb-1"
           hoverClassName="hover:scale-115"
+          mode="boomerang"
         />
         <TitleFX
           as="h3"
           text={item.role}
           className="text-xl font-bold text-white"
           hoverClassName="hover:scale-200 hover:text-emerald-300"
+          mode="boomerang"
         />
         <TextFX
           as="h4"
           text={item.company}
           className="text-lg font-medium text-zinc-300 mb-3"
           hoverClassName="hover:scale-125 hover:text-zinc-200"
+          mode="boomerang"
         />
         <TextFX
           as="p"
           text={item.description}
           className="text-zinc-400 text-base"
           hoverClassName="hover:text-zinc-200"
+          mode="boomerang"
         />
       </div>
     </motion.div>
@@ -87,6 +91,7 @@ export default function ExperienceSection() {
           text={t("title")}
           className="text-3xl font-bold tracking-tighter sm:text-5xl text-lime-300 mb-16 text-center"
           hoverClassName="hover:scale-125 hover:text-emerald-300"
+          mode="boomerang"
         />
 
         <div className="relative max-w-3xl mx-auto">
