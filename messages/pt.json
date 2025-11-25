@@ -56,6 +56,12 @@
     "title": "Experiência Profissional",
     "timeline": [
       {
+        "company": "LIA Flow Automation",
+        "period": "Jun 2025 - Atualidade",
+        "role": "Idealizador e Especialista em Automações",
+        "description": "Conduzo o planejamento e desenvolvimento de fluxos automatizados conversacionais com agentes de IA, conectando APIs oficiais do WhatsApp, chats inteligentes, integrações com APIs externas, Google Calendar, ERPs e bancos de dados como PostgreSQL para orquestrar automações ponta a ponta."
+      },
+      {
         "company": "INNGAGE - SOLUÇÕES EM ENGAJAMENTO",
         "period": "Fev 2021 - Mai 2025",
         "role": "Desenvolvedor Especialista",
@@ -118,4 +124,3 @@
     "github": "Ver no GitHub"
   }
 }
-
