@@ -94,6 +94,13 @@
     "viewMore": "Ver Mais no GitHub",
     "projectsList": [
       {
+        "title": "LIA Flow — Automação Conversacional",
+        "description":
+          "Plataforma de vendas de automações em liaflow.com.br com chat integrado a agente de IA, sincronização com Google Calendar, fluxos n8n, suporte multi-idiomas, reCAPTCHA e orquestrações adicionais.",
+        "stack": ["Next.js", "React", "next-intl", "AI Agent", "n8n", "Google Calendar", "reCAPTCHA"],
+        "url": "https://liaflow.com.br"
+      },
+      {
         "title": "Tattoo Platform — Next.js + 3D minimalista",
         "description":
           "Página com elementos 3D, design minimalista e sofisticado, foco em performance e interações sutis.",
